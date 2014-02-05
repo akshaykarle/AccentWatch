@@ -17,8 +17,13 @@
             </intent-filter>
         </activity>
 
-      <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-      <uses-permission android:name="android.permission.RECORD_AUDIO" />
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+        <activity
+            android:name="org.devcloud.accent.DisplayMessageActivity"
+            android:label="@string/title_activity_display_message" >
+        </activity>
     </application>
 
 </manifest>

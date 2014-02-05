@@ -18,23 +18,14 @@ public class DisplayMessageActivity extends ActionBarActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    
+
     if (savedInstanceState == null) {
       getSupportFragmentManager().beginTransaction()
           .add(R.id.container, new PlaceholderFragment())
           .commit();
     }
 
-    Intent intent = getIntent();
-    String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-
-    // Create the text view
-    TextView textView = new TextView(this);
-    textView.setTextSize(40);
-    textView.setText(message);
-
-    // Set the text view as the activity layout
-    setContentView(textView);
+    setContentView(R.layout.activity_display_message);
   }
 
   @Override
@@ -68,8 +59,16 @@ public class DisplayMessageActivity extends ActionBarActivity {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-      View rootView = inflater.inflate(R.layout.fragment_display_message, container, false);
-      return rootView;
+
+      String message = getActivity().getIntent().getStringExtra(MainActivity.EXTRA_MESSAGE);
+
+      // Create the text view
+      TextView textView = new TextView(container.getContext());
+      textView.setTextSize(40);
+      textView.setText(message);
+
+      // Set the text view as the activity layout
+      return textView;
     }
   }
 

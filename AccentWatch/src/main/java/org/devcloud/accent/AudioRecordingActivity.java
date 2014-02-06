@@ -51,26 +51,22 @@ public class AudioRecordingActivity extends Activity {
     enableButton(R.id.btnStop, isRecording);
   }
 
-  private String getFilename() {
-    String filepath = Environment.getExternalStorageDirectory().getPath();
-    File file = new File(filepath, AUDIO_RECORDER_FOLDER);
+  private File getFile() {
+    File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+    File folder = new File(path, AUDIO_RECORDER_FOLDER);
     String filename = String.format("%s.%s", System.currentTimeMillis(), file_exts[currentFormat]);
-
-    if (!file.exists()) {
-      file.mkdirs();
-    }
-
-    return String.format("%s/%s", file.getAbsolutePath(), filename);
+    folder.mkdirs();
+    return new File(folder, filename);
   }
 
   private void startRecording() {
-    String filename = getFilename();
+    File file = getFile();
     recorder = new MediaRecorder();
 
     recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
     recorder.setOutputFormat(output_formats[currentFormat]);
     recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-    recorder.setOutputFile(filename);
+    recorder.setOutputFile(file.getAbsolutePath());
 
     recorder.setOnErrorListener(errorListener);
     recorder.setOnInfoListener(infoListener);
@@ -78,7 +74,7 @@ public class AudioRecordingActivity extends Activity {
     try {
       recorder.prepare();
       recorder.start();
-      Log.d(this.getLocalClassName(), "Started recording to: " + filename);
+      Log.d(this.getClass().toString()  , "Started recording to: " + file.getAbsolutePath());
     } catch (IllegalStateException e) {
       e.printStackTrace();
     } catch (IOException e) {

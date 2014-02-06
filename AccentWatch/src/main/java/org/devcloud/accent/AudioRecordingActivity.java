@@ -78,7 +78,7 @@ public class AudioRecordingActivity extends Activity {
     try {
       recorder.prepare();
       recorder.start();
-      Log.e(this.getLocalClassName(), "Started recording to: " + filename);
+      Log.d(this.getLocalClassName(), "Started recording to: " + filename);
     } catch (IllegalStateException e) {
       e.printStackTrace();
     } catch (IOException e) {

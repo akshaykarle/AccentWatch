@@ -8,13 +8,14 @@ import android.content.DialogInterface;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 public class AudioRecordingActivity extends Activity {
-  private static final String AUDIO_RECORDER_FILE_EXT_3GP = ".3gp";
-  private static final String AUDIO_RECORDER_FILE_EXT_MP4 = ".mp4";
+  private static final String AUDIO_RECORDER_FILE_EXT_3GP = "3gp";
+  private static final String AUDIO_RECORDER_FILE_EXT_MP4 = "mp4";
   private static final String AUDIO_RECORDER_FOLDER = "AccentWatch";
 
   private MediaRecorder recorder = null;
@@ -34,13 +35,11 @@ public class AudioRecordingActivity extends Activity {
     setContentView(R.layout.main);
     setButtonHandlers();
     enableButtons(false);
-    setFormatButtonCaption();
   }
 
   private void setButtonHandlers() {
     ((Button) findViewById(R.id.btnStart)).setOnClickListener(btnClick);
     ((Button) findViewById(R.id.btnStop)).setOnClickListener(btnClick);
-    ((Button) findViewById(R.id.btnFormat)).setOnClickListener(btnClick);
   }
 
   private void enableButton(int id, boolean isEnable) {
@@ -49,32 +48,29 @@ public class AudioRecordingActivity extends Activity {
 
   private void enableButtons(boolean isRecording) {
     enableButton(R.id.btnStart, !isRecording);
-    enableButton(R.id.btnFormat, !isRecording);
     enableButton(R.id.btnStop, isRecording);
-  }
-
-  private void setFormatButtonCaption() {
-    ((Button) findViewById(R.id.btnFormat)).setText(getString(R.string.audio_format) + " (" + file_exts[currentFormat] + ")");
   }
 
   private String getFilename() {
     String filepath = Environment.getExternalStorageDirectory().getPath();
     File file = new File(filepath, AUDIO_RECORDER_FOLDER);
+    String filename = String.format("%s.%s", System.currentTimeMillis(), file_exts[currentFormat]);
 
     if (!file.exists()) {
       file.mkdirs();
     }
 
-    return (file.getAbsolutePath() + "/" + System.currentTimeMillis() + file_exts[currentFormat]);
+    return String.format("%s/%s", file.getAbsolutePath(), filename);
   }
 
   private void startRecording() {
+    String filename = getFilename();
     recorder = new MediaRecorder();
 
     recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
     recorder.setOutputFormat(output_formats[currentFormat]);
     recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
-    recorder.setOutputFile(getFilename());
+    recorder.setOutputFile(filename);
 
     recorder.setOnErrorListener(errorListener);
     recorder.setOnInfoListener(infoListener);
@@ -82,6 +78,7 @@ public class AudioRecordingActivity extends Activity {
     try {
       recorder.prepare();
       recorder.start();
+      Log.e(this.getLocalClassName(), "Started recording to: " + filename);
     } catch (IllegalStateException e) {
       e.printStackTrace();
     } catch (IOException e) {

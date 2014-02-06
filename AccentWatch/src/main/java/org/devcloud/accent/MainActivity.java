@@ -12,10 +12,18 @@ import android.view.ViewGroup;
 import android.os.Build;
 import android.content.Intent;
 import android.widget.EditText;
+import android.media.MediaRecorder;
+import android.media.MediaPlayer;
+import android.util.Log;
+import java.io.IOException;
+
+
 
 public class MainActivity extends ActionBarActivity {
 
   public final static String EXTRA_MESSAGE = "org.devcloud.activity.MESSAGE";
+  private MediaRecorder mRecorder = null;
+  private static String mFileName = null;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +37,24 @@ public class MainActivity extends ActionBarActivity {
     }
   }
 
-  public void sendMessage(View view) {
-    // Do something in response to button
-    Intent intent = new Intent(this, DisplayMessageActivity.class);
-    EditText editText = (EditText) findViewById(R.id.edit_message);
-    String message = editText.getText().toString();
-    intent.putExtra(EXTRA_MESSAGE, message);
-    startActivity(intent);
+  public void startRecord(View view) {
+    mRecorder = new MediaRecorder();
+    mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+    mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+    mRecorder.setOutputFile(mFileName);
+    mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+    try {
+      mRecorder.prepare();
+    } catch (IOException e) {
+      Log.e("startRecord", "prepare() failed");
+    }
+
+    mRecorder.start();
+  }
+
+  public void stopRecord(View view) {
+
   }
 
   @Override

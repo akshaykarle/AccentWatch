@@ -20,7 +20,7 @@
 
     <activity
         android:name="org.devcloud.accent.DisplayMessageActivity"
-        android:label="@string/title_activity_display_message" >
+        android:label="fuck" >
       android:parentActivityName="org.devcloud.accent.MainActivity" >
       <meta-data
           android:name="android.support.PARENT_ACTIVITY"

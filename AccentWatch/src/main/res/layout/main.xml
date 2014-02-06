@@ -3,14 +3,20 @@
   android:orientation="vertical"
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
-  android:padding="20dip">
+  android:padding="20dip"
+  android:weightSum="1">
 
-  <TextView
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/app_info"
-    android:layout_weight="1.0"
-    android:textSize="20dip"/>
+  <FrameLayout
+      android:layout_width="fill_parent"
+      android:layout_height="200dp">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/app_info"
+      android:textSize="25dip"
+      android:layout_gravity="center"/>
+  </FrameLayout>
 
   <LinearLayout
     android:orientation="horizontal"
@@ -30,5 +36,19 @@
       android:id="@+id/btnStop"
       android:text="@string/stop_recording"
       android:layout_weight="1.0"/>
+
   </LinearLayout>
+
+  <Space
+      android:layout_width="match_parent"
+      android:layout_height="100dp"
+      />
+
+  <Button
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/btnList"
+      android:text="@string/list_recordings"
+      />
+
 </LinearLayout>

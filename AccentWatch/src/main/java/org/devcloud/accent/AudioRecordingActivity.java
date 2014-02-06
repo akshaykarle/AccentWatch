@@ -5,6 +5,7 @@ import java.io.IOException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
@@ -40,6 +41,7 @@ public class AudioRecordingActivity extends Activity {
   private void setButtonHandlers() {
     ((Button) findViewById(R.id.btnStart)).setOnClickListener(btnClick);
     ((Button) findViewById(R.id.btnStop)).setOnClickListener(btnClick);
+    ((Button) findViewById(R.id.btnList)).setOnClickListener(btnClick);
   }
 
   private void enableButton(int id, boolean isEnable) {
@@ -51,12 +53,16 @@ public class AudioRecordingActivity extends Activity {
     enableButton(R.id.btnStop, isRecording);
   }
 
-  private File getFile() {
+  private File getDirectory() {
     File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
     File folder = new File(path, AUDIO_RECORDER_FOLDER);
-    String filename = String.format("%s.%s", System.currentTimeMillis(), file_exts[currentFormat]);
     folder.mkdirs();
-    return new File(folder, filename);
+    return folder;
+  }
+
+  private File getFile() {
+    String filename = String.format("%s.%s", System.currentTimeMillis(), file_exts[currentFormat]);
+    return new File(getDirectory(), filename);
   }
 
   private void startRecording() {
@@ -74,7 +80,7 @@ public class AudioRecordingActivity extends Activity {
     try {
       recorder.prepare();
       recorder.start();
-      Log.d(this.getClass().toString()  , "Started recording to: " + file.getAbsolutePath());
+      Log.d("AudioRecording", "Started recording to: " + file.getAbsolutePath());
     } catch (IllegalStateException e) {
       e.printStackTrace();
     } catch (IOException e) {
@@ -125,6 +131,11 @@ public class AudioRecordingActivity extends Activity {
               Toast.LENGTH_SHORT).show();
           enableButtons(false);
           stopRecording();
+          break;
+        case R.id.btnList:
+          // Log.i("AudioRecording", "Got List Button Press.");
+          Intent i = new Intent(getApplicationContext(), ListActivity.class);
+          startActivity(i);
           break;
       }
     }

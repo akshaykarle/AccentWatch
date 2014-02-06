@@ -10,8 +10,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ListActivity extends ActionBarActivity {
+import android.app.ListActivity;
+import android.os.Bundle;
+import android.os.Environment;
+import android.widget.ArrayAdapter;
+
+
+public class RecordingListActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

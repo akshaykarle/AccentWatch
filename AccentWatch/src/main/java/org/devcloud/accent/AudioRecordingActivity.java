@@ -53,7 +53,7 @@ public class AudioRecordingActivity extends Activity {
     enableButton(R.id.btnStop, isRecording);
   }
 
-  private File getDirectory() {
+  static File getDirectory() {
     File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
     File folder = new File(path, AUDIO_RECORDER_FOLDER);
     folder.mkdirs();
@@ -134,7 +134,7 @@ public class AudioRecordingActivity extends Activity {
           break;
         case R.id.btnList:
           // Log.i("AudioRecording", "Got List Button Press.");
-          Intent i = new Intent(getApplicationContext(), ListActivity.class);
+          Intent i = new Intent(getApplicationContext(), RecordingListActivity.class);
           startActivity(i);
           break;
       }

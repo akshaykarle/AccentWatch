@@ -51,7 +51,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.devcloud.accent.ListActivity"
+            android:name="org.devcloud.accent.RecordingListActivity"
             android:label="@string/title_activity_list"
             android:parentActivityName="org.devcloud.accent.AudioRecordingActivity" >
             <meta-data

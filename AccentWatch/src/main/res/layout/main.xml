@@ -8,40 +8,31 @@
 
   <FrameLayout
       android:layout_width="fill_parent"
-      android:layout_height="200dp">
+      android:layout_height="0dp"
+      android:layout_weight="1">
 
     <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="@string/app_info"
-      android:textSize="25dip"
-      android:layout_gravity="center"/>
+      android:textSize="20dip"
+      android:layout_gravity="left|top"
+      android:textStyle="normal"
+      android:typeface="serif"/>
   </FrameLayout>
 
-  <LinearLayout
-    android:orientation="horizontal"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+  <Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/btnStart"
+    android:text="@string/start_recording"
+      />
 
-    <Button
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:id="@+id/btnStart"
-      android:text="@string/start_recording"
-      android:layout_weight="1.0"/>
-
-    <Button
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:id="@+id/btnStop"
-      android:text="@string/stop_recording"
-      android:layout_weight="1.0"/>
-
-  </LinearLayout>
-
-  <Space
-      android:layout_width="match_parent"
-      android:layout_height="100dp"
+  <Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/btnStop"
+    android:text="@string/stop_recording"
       />
 
   <Button

@@ -54,7 +54,7 @@ public class AudioRecordingActivity extends Activity {
   }
 
   static File getDirectory() {
-    File path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+    File path = Environment.getExternalStorageDirectory();
     File folder = new File(path, AUDIO_RECORDER_FOLDER);
     folder.mkdirs();
     return folder;
@@ -84,7 +84,9 @@ public class AudioRecordingActivity extends Activity {
     } catch (IllegalStateException e) {
       e.printStackTrace();
     } catch (IOException e) {
-      e.printStackTrace();
+      // Unable to create file, likely because external storage is
+      // not currently mounted.
+      Log.w("ExternalStorage", "Error writing " + file, e);
     }
   }
 

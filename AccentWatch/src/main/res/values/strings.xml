@@ -9,4 +9,5 @@
     <string name="stop_recording">Stop</string>
     <string name="list_recordings">List Recordings</string>
     <string name="title_activity_list">Previously Recorded Accents</string>
+    <string name="empty_list">No recordings yet.</string>
 </resources>

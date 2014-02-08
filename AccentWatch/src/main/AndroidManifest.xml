@@ -4,8 +4,10 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- https://developer.android.com/guide/practices/screens-distribution.html#FilteringHansetApps -->
+
+  <!-- https://developer.android.com/guide/practices/screens-distribution.html#FilteringHansetApps -->
     <compatible-screens>
 
         <!-- all small size screens -->

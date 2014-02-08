@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -67,6 +68,13 @@ public class RecordingListActivity extends ActionBarActivity {
       directoryList = new ArrayAdapter<String>(inflater.getContext(), android.R.layout.simple_list_item_1, fileList);
       setListAdapter(directoryList);
       return rootView;
+    }
+
+    @Override
+    public void onListItemClick (ListView l, View v, int position, long id)
+
+    {
+
     }
   }
 }

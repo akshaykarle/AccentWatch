@@ -4,11 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -30,9 +33,42 @@ public class AudioRecordingActivity extends Activity {
     AUDIO_RECORDER_FILE_EXT_3GP
   };
 
+  NotificationCompat.Builder mBuilder =
+      new NotificationCompat.Builder(this)
+          .setContentTitle("Accent Watch")
+          .setContentText("Record something, it's been a while!");
+
+  private Handler handler = new Handler();
+  private Runnable runnable = new Runnable() {
+    public void run() {
+      Log.d("Runnable", "Running the runnable.");
+      if (recordingNeeded()) {
+        // Sets an ID for the notification
+        int mNotificationId = (int) System.currentTimeMillis();
+        // Gets an instance of the NotificationManager service
+        NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        // Builds the notification and issues it.
+        mNotifyMgr.notify(mNotificationId, mBuilder.build());
+      }
+
+      // Check again in a day.
+      handler.postDelayed(this, 86400);
+    }
+  };
+
+  private boolean recordingNeeded() {
+    return true;
+  }
+
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    // After 100 seconds, make sure a recording has been made.
+    handler.postDelayed(runnable, 1);
+    Log.i("RecordingActivity", handler.toString());
+
+    // Create the layout.
     setContentView(R.layout.main);
     setButtonHandlers();
     enableButtons(false);

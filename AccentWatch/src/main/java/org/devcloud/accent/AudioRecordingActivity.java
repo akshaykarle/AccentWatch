@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -33,8 +34,10 @@ public class AudioRecordingActivity extends Activity {
     AUDIO_RECORDER_FILE_EXT_3GP
   };
 
-  NotificationCompat.Builder mBuilder =
+  private NotificationCompat.Builder mBuilder =
       new NotificationCompat.Builder(this)
+          .setSmallIcon(R.drawable.ic_launcher)
+          .setPriority(Notification.PRIORITY_MIN)
           .setContentTitle("Accent Watch")
           .setContentText("Record something, it's been a while!");
 
@@ -48,6 +51,7 @@ public class AudioRecordingActivity extends Activity {
         // Gets an instance of the NotificationManager service
         NotificationManager mNotifyMgr = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         // Builds the notification and issues it.
+        mNotifyMgr.cancelAll();
         mNotifyMgr.notify(mNotificationId, mBuilder.build());
       }
 
@@ -65,7 +69,7 @@ public class AudioRecordingActivity extends Activity {
     super.onCreate(savedInstanceState);
 
     // After 100 seconds, make sure a recording has been made.
-    handler.postDelayed(runnable, 1);
+    handler.postDelayed(runnable, 100);
     Log.i("RecordingActivity", handler.toString());
 
     // Create the layout.
